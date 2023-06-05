@@ -38,8 +38,8 @@
                     <input type="date" name="date" id="date" placeholder="Journey Date" required>
                     <input type="text" name="name" id="name" placeholder="Name" required>
                     <input type="text" name="phone" id="phone" placeholder="Phone" required>
-                    <input type="text" name="coaster" id="coaster" placeholder="No of Coaster" required>
-                    <input type="text" name="days" id="day" placeholder="No of days" required>
+                    <input type="number" name="coaster" id="coaster" placeholder="No of Coaster" required>
+                    <input type="number" name="days" id="day" placeholder="No of days" required>
 
                     <div class="btn-group">
                         <button type="submit" name="fare" id="fareBtn">Calculate Fare</button>
