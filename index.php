@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tourist Bus Rental Service</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- jQuery UI CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!-- jQuery UI -->
 </head>
 
 <body>
@@ -86,56 +89,69 @@
     </footer>
 
     <script>
-        document.getElementById("fareBtn").addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default form submission behavior
-            fareCalc(); // Calculate the fare
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentDate = new Date();
+            var minDate = currentDate.toISOString().split("T")[0]; // Get today's date
 
-        function fareCalc() {
+            var futureDate = new Date();
+            futureDate.setMonth(futureDate.getMonth() + 3); // Add 3 months to the current date
+            var maxDate = futureDate.toISOString().split("T")[0]; // Get the date 3 months from now
+
             var dateField = document.getElementById("date");
-            var nameField = document.getElementById("name");
-            var phoneField = document.getElementById("phone");
-            var coasterField = document.getElementById("coaster");
-            var dayField = document.getElementById("day");
+            dateField.setAttribute("min", minDate);
+            dateField.setAttribute("max", maxDate);
 
-            var subTotal = dayField.value * 14990;
-            var Vat = subTotal * 0.05;
-            var grandTotal = subTotal + Vat;
+            document.getElementById("fareBtn").addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent default form submission behavior
+                fareCalc(); // Calculate the fare
+            });
 
-            document.getElementById("total").innerHTML = subTotal;
-            document.getElementById("vat").innerHTML = Vat;
-            document.getElementById("grandT").innerHTML = grandTotal;
-        }
+            function fareCalc() {
+                var dateField = document.getElementById("date");
+                var nameField = document.getElementById("name");
+                var phoneField = document.getElementById("phone");
+                var coasterField = document.getElementById("coaster");
+                var dayField = document.getElementById("day");
 
-        document.getElementById("bookBtn").addEventListener("click", function(event) {
-            if (validateForm()) {
-                return; // If the form is valid, allow form submission
-            } else {
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-        });
+                var subTotal = dayField.value * 14990;
+                var Vat = subTotal * 0.05;
+                var grandTotal = subTotal + Vat;
 
-        function validateForm() {
-            var dateField = document.getElementById("date");
-            var nameField = document.getElementById("name");
-            var phoneField = document.getElementById("phone");
-            var coasterField = document.getElementById("coaster");
-            var dayField = document.getElementById("day");
-
-            var isValid = true;
-
-            if (dateField.value === "" ||
-                nameField.value === "" ||
-                phoneField.value === "" ||
-                coasterField.value === "" ||
-                dayField.value === ""
-            ) {
-                isValid = false;
-                alert("Please fill all the fields!");
+                document.getElementById("total").innerHTML = subTotal;
+                document.getElementById("vat").innerHTML = Vat;
+                document.getElementById("grandT").innerHTML = grandTotal;
             }
 
-            return isValid;
-        }
+            document.getElementById("bookBtn").addEventListener("click", function(event) {
+                if (validateForm()) {
+                    return; // If the form is valid, allow form submission
+                } else {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+
+            function validateForm() {
+                var dateField = document.getElementById("date");
+                var nameField = document.getElementById("name");
+                var phoneField = document.getElementById("phone");
+                var coasterField = document.getElementById("coaster");
+                var dayField = document.getElementById("day");
+
+                var isValid = true;
+
+                if (dateField.value === "" ||
+                    nameField.value === "" ||
+                    phoneField.value === "" ||
+                    coasterField.value === "" ||
+                    dayField.value === ""
+                ) {
+                    isValid = false;
+                    alert("Please fill all the fields!");
+                }
+
+                return isValid;
+            }
+        });
     </script>
 </body>
 
