@@ -39,7 +39,7 @@
                     <input type="text" name="days" id="day" placeholder="No of days" required>
 
                     <div class="btn-group">
-                        <button type="submit" name="fare" onclick="fareCalc()" id="fareBtn">Calculate Fare</button>
+                        <button type="submit" name="fare" id="fareBtn">Calculate Fare</button>
                         <button type="submit" name="book" id="bookBtn">Book</button>
                     </div>
                 </form>
@@ -81,11 +81,62 @@
             ?>
         </div>
     </div>
-    <footer style="background-color: rgb(7, 169, 197);color:white;text-align:center; padding:1rem;">
+    <footer>
         &copy Srijon Ashraf
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById("fareBtn").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            fareCalc(); // Calculate the fare
+        });
+
+        function fareCalc() {
+            var dateField = document.getElementById("date");
+            var nameField = document.getElementById("name");
+            var phoneField = document.getElementById("phone");
+            var coasterField = document.getElementById("coaster");
+            var dayField = document.getElementById("day");
+
+            var subTotal = dayField.value * 14990;
+            var Vat = subTotal * 0.05;
+            var grandTotal = subTotal + Vat;
+
+            document.getElementById("total").innerHTML = subTotal;
+            document.getElementById("vat").innerHTML = Vat;
+            document.getElementById("grandT").innerHTML = grandTotal;
+        }
+
+        document.getElementById("bookBtn").addEventListener("click", function(event) {
+            if (validateForm()) {
+                return; // If the form is valid, allow form submission
+            } else {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+
+        function validateForm() {
+            var dateField = document.getElementById("date");
+            var nameField = document.getElementById("name");
+            var phoneField = document.getElementById("phone");
+            var coasterField = document.getElementById("coaster");
+            var dayField = document.getElementById("day");
+
+            var isValid = true;
+
+            if (dateField.value === "" ||
+                nameField.value === "" ||
+                phoneField.value === "" ||
+                coasterField.value === "" ||
+                dayField.value === ""
+            ) {
+                isValid = false;
+                alert("Please fill all the fields!");
+            }
+
+            return isValid;
+        }
+    </script>
 </body>
 
 </html>
