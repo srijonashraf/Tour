@@ -24,6 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var coasterField = document.getElementById("coaster");
     var dayField = document.getElementById("day");
 
+    var isValid = validateForm();
+
+    if (!isValid) {
+      alert("Please fill all the fields!");
+      return;
+    }
+
     var subTotal = dayField.value * 14990;
     var Vat = subTotal * 0.05;
     var grandTotal = subTotal + Vat;
@@ -31,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("total").innerHTML = subTotal;
     document.getElementById("vat").innerHTML = Vat;
     document.getElementById("grandT").innerHTML = grandTotal;
+     document.getElementById("grandTotal").value = grandTotal;
+
   }
 
   document
@@ -50,8 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var coasterField = document.getElementById("coaster");
     var dayField = document.getElementById("day");
 
-    var isValid = true;
-
     if (
       dateField.value === "" ||
       nameField.value === "" ||
@@ -59,10 +66,32 @@ document.addEventListener("DOMContentLoaded", function () {
       coasterField.value === "" ||
       dayField.value === ""
     ) {
-      isValid = false;
-      alert("Please fill all the fields!");
+      return false;
     }
 
-    return isValid;
+    return true;
   }
+
+  // Remove number input spinner buttons
+  var coasterInput = document.getElementById("coaster");
+  coasterInput.addEventListener("focus", function () {
+    this.removeAttribute("readonly");
+  });
+
+  coasterInput.addEventListener("blur", function () {
+    this.setAttribute("readonly", "readonly");
+  });
+
+  // Limit coaster to maximum 5
+  coasterInput.addEventListener("input", function () {
+    var value = parseInt(this.value);
+    if (value < 1) {
+      this.value = 1;
+      alert("Minimum limit exceeded. Coaster set to 1.");
+    } else if (value > 5) {
+      this.value = 5;
+      alert("Maximum limit exceeded. Coaster set to 5.");
+    }
+  });
+
 });

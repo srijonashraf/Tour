@@ -38,8 +38,10 @@
                     <input type="date" name="date" id="date" placeholder="Journey Date" required>
                     <input type="text" name="name" id="name" placeholder="Name" required>
                     <input type="text" name="phone" id="phone" placeholder="Phone" required>
-                    <input type="number" name="coaster" id="coaster" placeholder="No of Coaster" required>
+                    <input type="number" name="coaster" id="coaster" placeholder="Enter No. of Coasters (Max: 5)" min="1" max="5" required>
                     <input type="number" name="days" id="day" placeholder="No of days" required>
+                    <input type="hidden" name="grandTotal" id="grandTotal" value="">
+
 
                     <div class="btn-group">
                         <button type="submit" name="fare" id="fareBtn">Calculate Fare</button>
@@ -64,7 +66,7 @@
         </div>
         <div class="post">
             <?php
-            if (isset($_POST['book'])) { // Check if the "book" button is pressed
+            if (isset($_POST['book'])) {
                 $name = $_POST['name'];
                 $phone = $_POST['phone'];
                 $coaster = $_POST['coaster'];
@@ -76,11 +78,15 @@
                     echo "<p>Phone No: $phone</p>";
                     echo "<p>Coaster: $coaster</p>";
                     echo "<p>Day: $day</p>";
+
+                    if (isset($_POST['grandTotal'])) {
+                        $grandTotal = $_POST['grandTotal'];
+                        echo "<p>Grand Total: $grandTotal $</p>";
+                    }
                 } else {
                     echo "<p>Please fill all the fields!</p>";
                 }
             }
-
             ?>
         </div>
     </div>
